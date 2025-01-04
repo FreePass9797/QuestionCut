@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 33
+    buildToolsVersion "33.0.2"
+    defaultConfig {
+        applicationId "com.test.questioncut"
+        minSdkVersion 26
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        multiDexEnabled true
+        multiDexKeepFile file('multidex-config.txt')
+
+    }
+
+    compileOptions {
+        sourceCompatibility 11
+        targetCompatibility 11
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled false
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+    defaultConfig {
+        ndk {
+            abiFilters 'arm64-v8a'
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+
+    implementation 'com.google.android:flexbox:2.0.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    implementation "com.github.skydoves:whatif:1.0.6"
+    implementation "com.github.bumptech.glide:glide:4.13.2"
+    implementation "com.github.bumptech.glide:compiler:4.12.0"
+    implementation implementation(project(':cut_model',))
+
+
+}

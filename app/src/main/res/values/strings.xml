@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">QuestionCut</string>
+    <string name="no_network">检测到未连接网络,请设置</string>
+
+</resources>
